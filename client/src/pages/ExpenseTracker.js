@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './ExpenseTracker.css'; // Create this file for styling
+import { baseUrl } from '../baseUrl';
 
 const ExpenseTracker = ({ userId, handleLogout }) => {
     const [expenses, setExpenses] = useState([]);
@@ -13,7 +14,7 @@ const ExpenseTracker = ({ userId, handleLogout }) => {
 
     const fetchExpenses = async () => {
         try {
-            const res = await axios.get(`http://localhost:5000/api/expenses/${userId}`);
+            const res = await axios.get(`${baseUrl}/api/expenses/${userId}`);
             setExpenses(res.data);
         } catch (err) {
             console.error('Error fetching expenses', err);
@@ -23,7 +24,7 @@ const ExpenseTracker = ({ userId, handleLogout }) => {
     const addExpense = async () => {
         try {
             const newExpense = { userId, description, amount };
-            const res = await axios.post('http://localhost:5000/api/expenses', newExpense);
+            const res = await axios.post(`${baseUrl}/api/expenses`, newExpense);
             setExpenses([...expenses, res.data]);
             setDescription('');
             setAmount('');
@@ -34,7 +35,7 @@ const ExpenseTracker = ({ userId, handleLogout }) => {
 
     const deleteExpense = async (id) => {
         try {
-            await axios.delete(`http://localhost:5000/api/expenses/${id}`);
+            await axios.delete(`${baseUrl}/api/expenses/${id}`);
             setExpenses(expenses.filter(expense => expense._id !== id));
         } catch (err) {
             console.error('Error deleting expense', err);

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './AuthForm.css'; // Assuming you have separate CSS for styling
 import { Link } from 'react-router-dom';
+import { baseUrl } from '../baseUrl';
 
 const Login = ({ setToken, setUserId }) => {
     const [username, setUsername] = useState('');
@@ -9,7 +10,7 @@ const Login = ({ setToken, setUserId }) => {
 
     const loginUser = async () => {
         try {
-            const res = await axios.post('http://localhost:5000/api/auth/login', { username, password });
+            const res = await axios.post(`${baseUrl}/api/auth/login`, { username, password });
             setToken(res.data.token);
             setUserId(res.data.userId);
             localStorage.setItem('token', res.data.token);

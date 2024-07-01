@@ -8,7 +8,8 @@ const app = express()
 const PORT = process.env.PORT||5000
 
 const corsOptions = {
-  origin: 'http://localhost:3000', // Replace with your frontend's origin
+  // origin: 'http://localhost:3000', // Replace with your frontend's origin
+  origin:'https://expense-tracker-client-ten.vercel.app',
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   allowedHeaders: ['Content-Type', 'Authorization'], // Add other headers as needed
   optionsSuccessStatus: 200,
