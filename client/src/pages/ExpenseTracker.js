@@ -64,7 +64,7 @@ const ExpenseTracker = ({ userId, handleLogout }) => {
                 {expenses.map(expense => (
                     <div key={expense._id} className="expense-item">
                         <span>{expense.description}</span>
-                        <span>${expense.amount}</span>
+                        <span>₹{expense.amount}</span>
                         <button onClick={() => deleteExpense(expense._id)}>Delete</button>
                     </div>
                 ))}

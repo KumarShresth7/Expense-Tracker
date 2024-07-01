@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './AuthForm.css'; // Assuming you have separate CSS for styling
+import { Link } from 'react-router-dom';
 
 const Login = ({ setToken, setUserId }) => {
     const [username, setUsername] = useState('');
@@ -34,6 +35,8 @@ const Login = ({ setToken, setUserId }) => {
                 onChange={e => setPassword(e.target.value)}
             />
             <button onClick={loginUser}>Login</button>
+            <br/><br/>
+            <Link to='/register'>New User?</Link>
         </div>
     );
 };
