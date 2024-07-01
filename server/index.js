@@ -15,4 +15,5 @@ mongoose.connect(process.env.MONGO_URI)
 .catch((err)=>console.log(err))
 
 app.get('/',(req,res)=>res.send('Expense Tracker API'))
+app.use('/api/expenses',require('./routes/expenseRouter'))
 app.listen(PORT,()=>console.log(`Server is listening at ${PORT}`))
