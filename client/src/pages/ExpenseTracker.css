@@ -53,6 +53,7 @@
     background-color: #4cae4c;
 }
 
+/* Expense List Styles */
 .expense-list {
     margin-top: 20px;
 }
@@ -60,23 +61,41 @@
 .expense-item {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 10px;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #ddd;
 }
 
-.expense-item span {
+.expense-item:last-child {
+    border-bottom: none; /* Remove border from the last item */
+}
+
+.expense-item .description {
     flex: 1;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.expense-item .amount {
+    font-size: 16px;
+    color: #555;
+}
+
+.expense-item .actions {
+    display: flex;
+    gap: 10px;
 }
 
 .expense-item button {
-    background-color: #d9534f;
+    background-color: #dc3545;
     color: white;
-    padding: 5px 10px;
     border: none;
+    padding: 5px 10px;
     border-radius: 4px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 .expense-item button:hover {
-    background-color: #c9302c;
+    background-color: #c82333;
 }
