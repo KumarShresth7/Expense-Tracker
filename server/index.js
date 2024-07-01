@@ -10,6 +10,7 @@ const PORT = process.env.PORT||5000
 const corsOptions = {
     origin: 'http://localhost:3000', // Replace with your frontend's origin
     optionsSuccessStatus: 200,
+    allowedHeaders: ['Authorization']
   };
 
 app.use(cors(corsOptions))
