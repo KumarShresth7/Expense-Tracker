@@ -17,7 +17,7 @@ const corsOptions = {
 app.use(cors(corsOptions))
 app.use(express.json())
 
-mongoose.connect(process.env.MONGO_URI)
+mongoose.connect(process.env.MONGO_ATLAS_URI)
 .then(()=>console.log('MongoDB Connected'))
 .catch((err)=>console.log(err))
 
