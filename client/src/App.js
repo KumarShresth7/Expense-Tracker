@@ -1,60 +1,41 @@
-import React,{useEffect,useState} from 'react'
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import ExpenseTracker from './pages/ExpenseTracker'; // Assuming you have this component for authenticated view
 import './App.css';
-import axios from 'axios'
 
-function App() {
-  const [expenses, setexpenses] = useState([])
-  const [title, settitle] = useState('')
-  const [amount, setamount] = useState('')
+const App = () => {
+    const [token, setToken] = useState(localStorage.getItem('token') || '');
+    const [userId, setUserId] = useState(localStorage.getItem('userId') || '');
 
-  useEffect(()=>{
-    axios.get('http://localhost:5000/api/expense')
-    .then(res=>setexpenses(res.data))
-    .catch(err=>console.log(err))
-  },[])
+    const handleLogout = () => {
+        setToken('');
+        setUserId('');
+        localStorage.removeItem('token');
+        localStorage.removeItem('userId');
+    };
 
-  const addExpense = () =>{
-    axios.post('http://localhost:5000/api/expense',{title,amount})
-    .then(res=>setexpenses([...expenses],res.data))
-    .catch(err=>console.log(err))
-  }
-
-  const deleteExpense = (id)=>{
-    axios.delete(`http://localhost:5000/api/expense/${id}`)
-    .then(()=>setexpenses(expenses.filter(exp=> exp._id!==id)))
-    .catch(err=>console.log(err))
-  }
-
-  return (
-    <div className='App'>
-      <h1>Expense Tracker</h1>
-      <div>
-        <input
-        type='text'
-        placeholder='Title'
-        value={title}
-        onChange={(e)=>settitle(e.target.value)}/>
-
-        <input
-        type='number'
-        placeholder='Amount'
-        value={amount}
-        onChange={(e)=>setamount(e.target.value)}/>
-
-        <button onClick={addExpense}>Add Expense</button>
-      </div>
-
-      <ul>
-        {expenses.map(exp=>(
-          <li key={exp._id}>
-            {exp.title} - ${exp.amount}
-            <button onClick={()=>deleteExpense(exp._id)}>Delete</button>
-          </li>
-        ))}
-      </ul>
-
-    </div>
-  );
-}
+    return (
+        <Router>
+            <div className="App">
+                <Routes>
+                    <Route
+                        path="/login"
+                        element={!token ? <Login setToken={setToken} setUserId={setUserId} /> : <Navigate to="/" />}
+                    />
+                    <Route
+                        path="/register"
+                        element={!token ? <Register setToken={setToken} setUserId={setUserId} /> : <Navigate to="/" />}
+                    />
+                    <Route
+                        path="/"
+                        element={token ? <ExpenseTracker userId={userId} handleLogout={handleLogout} /> : <Navigate to="/login" />}
+                    />
+                </Routes>
+            </div>
+        </Router>
+    );
+};
 
 export default App;
